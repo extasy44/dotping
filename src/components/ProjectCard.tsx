@@ -10,7 +10,7 @@ interface ProjectCardProps {
  * Modern ProjectCard component with advanced animations and micro-interactions
  */
 function ProjectCard({ project, index }: ProjectCardProps): React.JSX.Element {
-  const [isHovered, setIsHovered] = useState<boolean>(false);
+  const [, setIsHovered] = useState<boolean>(false);
 
   return (
     <div

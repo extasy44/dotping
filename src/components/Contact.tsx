@@ -1,12 +1,6 @@
 import { contactInfo } from '../data/portfolio-data';
 import { useForm } from '../hooks/usePortfolio';
 
-interface FormData {
-  name: string;
-  email: string;
-  message: string;
-}
-
 /**
  * Modern Contact section with enhanced form design and visual elements
  */
@@ -17,11 +11,11 @@ function Contact(): React.JSX.Element {
     message: '',
   });
 
-  const onSubmit = (formData: FormData): void => {
-    console.log('Form submitted:', formData);
+  const onSubmit = (values: { [key: string]: string }): void => {
+    console.log('Form submitted:', values);
     // Create mailto link for email
-    const subject = encodeURIComponent(`Portfolio Contact from ${formData.name}`);
-    const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`);
+    const subject = encodeURIComponent(`Portfolio Contact from ${values.name}`);
+    const body = encodeURIComponent(`Name: ${values.name}\nEmail: ${values.email}\n\nMessage:\n${values.message}`);
     const mailtoLink = `mailto:${contactInfo.email}?subject=${subject}&body=${body}`;
 
     // Open email client

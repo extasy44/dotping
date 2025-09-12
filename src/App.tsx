@@ -55,21 +55,6 @@ function App(): React.JSX.Element {
       <div className='font-sans text-white bg-gradient-to-br from-secondary-950 via-secondary-900 to-primary-950 min-h-screen'>
         <Navigation activeSection={activeSection} onSectionClick={handleSectionClick} isProjectPage={false} />
 
-        {/* Theme Test Element - Remove this after testing */}
-        <div className='fixed top-20 right-4 z-50 bg-secondary-800 p-4 rounded-lg border border-primary-500'>
-          <div className='text-xs text-white mb-2'>Theme Test:</div>
-          <div className='flex gap-2 mb-2'>
-            <div className='w-6 h-6 bg-primary-500 rounded border'></div>
-            <div className='w-6 h-6 bg-accent-500 rounded border'></div>
-          </div>
-          <div className='text-xs text-secondary-300'>Backgrounds & Text:</div>
-          <div className='flex gap-2'>
-            <div className='w-6 h-6 bg-secondary-800 rounded border border-secondary-600'></div>
-            <div className='w-6 h-6 bg-secondary-900 rounded border border-secondary-700'></div>
-            <div className='w-6 h-6 bg-primary-300 rounded border'></div>
-          </div>
-        </div>
-
         <Hero onProjectsClick={handleProjectsClick} onContactClick={handleContactClick} />
 
         <Projects />
