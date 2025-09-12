@@ -38,7 +38,7 @@ function Hero({ onProjectsClick, onContactClick }: HeroProps): React.JSX.Element
       <div className='relative z-10 max-w-7xl mx-auto px-6 text-center'>
         <div className='mb-12 animate-fade-in-up'>
           {/* Badge */}
-          <div className='inline-flex items-center px-6 py-3 mt-16 mb-8 bg-primary-500/10 backdrop-blur-sm border border-primary-400/30 rounded-full text-sm font-medium text-primary-300 shadow-neon'>
+          <div className='inline-flex items-center px-6 py-3 mt-24 sm:mt-20 md:mt-16 mb-8 bg-primary-500/10 backdrop-blur-sm border border-primary-400/30 rounded-full text-sm font-medium text-primary-300 shadow-neon'>
             <span className='w-2 h-2 bg-primary-400 rounded-full mr-3 animate-glow-pulse'></span>
             Senior Designer • Available for Projects
           </div>
