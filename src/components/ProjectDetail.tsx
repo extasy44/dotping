@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Project } from '../types/portfolio.types';
 import { getRelatedProjects } from '../data/portfolio-data';
 import ProjectCard from './ProjectCard';
@@ -12,7 +12,73 @@ interface ProjectDetailProps {
  */
 function ProjectDetail({ project }: ProjectDetailProps): React.JSX.Element {
   const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0);
+  const [isImageTransitioning, setIsImageTransitioning] = useState<boolean>(false);
+  const [isFullscreenOpen, setIsFullscreenOpen] = useState<boolean>(false);
+  const [fullscreenImageIndex, setFullscreenImageIndex] = useState<number>(0);
   const relatedProjects = getRelatedProjects(project.id, 3);
+
+  // Handle smooth image transitions
+  const handleImageChange = (newIndex: number): void => {
+    if (newIndex === selectedImageIndex || isImageTransitioning) return;
+
+    setIsImageTransitioning(true);
+
+    // Small delay to allow transition to start
+    setTimeout(() => {
+      setSelectedImageIndex(newIndex);
+      setIsImageTransitioning(false);
+    }, 150);
+  };
+
+  // Handle fullscreen image viewer
+  const openFullscreen = (index: number): void => {
+    setFullscreenImageIndex(index);
+    setIsFullscreenOpen(true);
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+  };
+
+  const closeFullscreen = (): void => {
+    setIsFullscreenOpen(false);
+    document.body.style.overflow = 'unset'; // Restore scrolling
+  };
+
+  const navigateFullscreen = (direction: 'prev' | 'next'): void => {
+    const totalImages = project.images.length;
+    if (direction === 'prev') {
+      setFullscreenImageIndex((prev) => (prev - 1 + totalImages) % totalImages);
+    } else {
+      setFullscreenImageIndex((prev) => (prev + 1) % totalImages);
+    }
+  };
+
+  // Keyboard navigation for fullscreen
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent): void => {
+      if (!isFullscreenOpen) return;
+
+      switch (e.key) {
+        case 'Escape':
+          closeFullscreen();
+          break;
+        case 'ArrowLeft':
+          navigateFullscreen('prev');
+          break;
+        case 'ArrowRight':
+          navigateFullscreen('next');
+          break;
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isFullscreenOpen]);
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, []);
 
   return (
     <div className='min-h-screen bg-gradient-to-br from-secondary-950 via-secondary-900 to-primary-950'>
@@ -161,12 +227,45 @@ function ProjectDetail({ project }: ProjectDetailProps): React.JSX.Element {
 
             {/* Main Image Display */}
             <div className='mb-8'>
-              <div className='relative overflow-hidden rounded-3xl shadow-tech-glow'>
-                <img
-                  src={project.images[selectedImageIndex]}
-                  alt={`${project.title} - Image ${selectedImageIndex + 1}`}
-                  className='w-full h-[600px] object-cover'
-                />
+              <div
+                className='relative overflow-hidden rounded-3xl shadow-tech-glow group cursor-pointer'
+                onClick={() => openFullscreen(selectedImageIndex)}>
+                {/* Image with smooth transition */}
+                <div className='relative w-full h-[600px] overflow-hidden'>
+                  <img
+                    src={project.images[selectedImageIndex]}
+                    alt={`${project.title} - Image ${selectedImageIndex + 1}`}
+                    className={`w-full h-full object-cover transition-all duration-500 ease-in-out ${
+                      isImageTransitioning ? 'opacity-0 scale-105' : 'opacity-100 scale-100'
+                    }`}
+                  />
+
+                  {/* Loading overlay during transition */}
+                  {isImageTransitioning && (
+                    <div className='absolute inset-0 bg-secondary-900/50 flex items-center justify-center'>
+                      <div className='w-8 h-8 border-2 border-primary-400 border-t-transparent rounded-full animate-spin'></div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Hover overlay with zoom icon */}
+                <div className='absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100'>
+                  <div className='bg-primary-500/90 backdrop-blur-sm rounded-full p-4 transform scale-75 group-hover:scale-100 transition-transform duration-300'>
+                    <svg className='w-8 h-8 text-white' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                      <path
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        strokeWidth={2}
+                        d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7'
+                      />
+                    </svg>
+                  </div>
+                </div>
+
+                {/* Image counter */}
+                <div className='absolute top-4 right-4 bg-black/70 backdrop-blur-sm rounded-full px-3 py-1 text-sm text-white'>
+                  {selectedImageIndex + 1} / {project.images.length}
+                </div>
               </div>
             </div>
 
@@ -175,16 +274,135 @@ function ProjectDetail({ project }: ProjectDetailProps): React.JSX.Element {
               {project.images.map((image, index) => (
                 <button
                   key={index}
-                  onClick={() => setSelectedImageIndex(index)}
-                  className={`relative overflow-hidden rounded-xl transition-all duration-300 ${
-                    selectedImageIndex === index ? 'ring-4 ring-primary-400 shadow-neon' : 'hover:shadow-tech-glow'
-                  }`}>
-                  <img src={image} alt={`${project.title} - Thumbnail ${index + 1}`} className='w-full h-32 object-cover' />
+                  onClick={() => handleImageChange(index)}
+                  disabled={isImageTransitioning}
+                  className={`relative overflow-hidden rounded-xl transition-all duration-300 group ${
+                    selectedImageIndex === index
+                      ? 'ring-4 ring-primary-400 shadow-neon scale-105'
+                      : 'hover:shadow-tech-glow hover:scale-105'
+                  } ${isImageTransitioning ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}>
+                  <img
+                    src={image}
+                    alt={`${project.title} - Thumbnail ${index + 1}`}
+                    className='w-full h-32 object-cover transition-transform duration-300 group-hover:scale-110'
+                  />
+
+                  {/* Thumbnail overlay */}
+                  <div className='absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100'>
+                    <div className='bg-white/90 backdrop-blur-sm rounded-full p-2'>
+                      <svg className='w-4 h-4 text-gray-800' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                        <path
+                          strokeLinecap='round'
+                          strokeLinejoin='round'
+                          strokeWidth={2}
+                          d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7'
+                        />
+                      </svg>
+                    </div>
+                  </div>
                 </button>
               ))}
             </div>
           </div>
         </section>
+      )}
+
+      {/* Fullscreen Image Viewer */}
+      {isFullscreenOpen && (
+        <div className='fixed inset-0 z-50 bg-black/95 backdrop-blur-sm flex items-center justify-center'>
+          {/* Close button */}
+          <button
+            onClick={closeFullscreen}
+            className='absolute top-6 right-6 z-10 bg-black/70 backdrop-blur-sm rounded-full p-3 text-white hover:bg-black/90 transition-all duration-300 group'>
+            <svg
+              className='w-6 h-6 group-hover:rotate-90 transition-transform duration-300'
+              fill='none'
+              stroke='currentColor'
+              viewBox='0 0 24 24'>
+              <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M6 18L18 6M6 6l12 12' />
+            </svg>
+          </button>
+
+          {/* Navigation buttons */}
+          {project.images.length > 1 && (
+            <>
+              <button
+                onClick={() => navigateFullscreen('prev')}
+                className='absolute left-6 top-1/2 -translate-y-1/2 z-10 bg-black/70 backdrop-blur-sm rounded-full p-3 text-white hover:bg-black/90 transition-all duration-300 group'>
+                <svg
+                  className='w-6 h-6 group-hover:-translate-x-1 transition-transform duration-300'
+                  fill='none'
+                  stroke='currentColor'
+                  viewBox='0 0 24 24'>
+                  <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M15 19l-7-7 7-7' />
+                </svg>
+              </button>
+
+              <button
+                onClick={() => navigateFullscreen('next')}
+                className='absolute right-6 top-1/2 -translate-y-1/2 z-10 bg-black/70 backdrop-blur-sm rounded-full p-3 text-white hover:bg-black/90 transition-all duration-300 group'>
+                <svg
+                  className='w-6 h-6 group-hover:translate-x-1 transition-transform duration-300'
+                  fill='none'
+                  stroke='currentColor'
+                  viewBox='0 0 24 24'>
+                  <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M9 5l7 7-7 7' />
+                </svg>
+              </button>
+            </>
+          )}
+
+          {/* Main image with smooth transition */}
+          <div className='relative w-full h-full flex items-center justify-center fullscreen-image-container'>
+            <div className='relative w-full h-full flex items-center justify-center'>
+              <img
+                key={fullscreenImageIndex} // Force re-render for smooth transition
+                src={project.images[fullscreenImageIndex]}
+                alt={`${project.title} - Full size ${fullscreenImageIndex + 1}`}
+                className='fullscreen-image rounded-lg shadow-2xl transition-all duration-500 ease-in-out animate-fade-in'
+                style={{
+                  maxWidth: '100vw',
+                  maxHeight: '90vh',
+                  width: 'auto',
+                  height: 'auto',
+                  objectFit: 'contain',
+                  objectPosition: 'center',
+                }}
+              />
+            </div>
+          </div>
+
+          {/* Image counter */}
+          <div className='absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/70 backdrop-blur-sm rounded-full px-4 py-2 text-white'>
+            {fullscreenImageIndex + 1} / {project.images.length}
+          </div>
+
+          {/* Thumbnail strip with custom scrollbar */}
+          {project.images.length > 1 && (
+            <div className='absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 max-w-md overflow-x-auto scrollbar-neon'>
+              {project.images.map((image, index) => (
+                <button
+                  key={index}
+                  onClick={() => setFullscreenImageIndex(index)}
+                  className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden transition-all duration-300 ${
+                    fullscreenImageIndex === index
+                      ? 'ring-2 ring-primary-400 shadow-neon'
+                      : 'hover:ring-2 hover:ring-white/50 hover:shadow-glow'
+                  }`}>
+                  <img src={image} alt={`Thumbnail ${index + 1}`} className='w-full h-full object-cover' />
+                </button>
+              ))}
+            </div>
+          )}
+
+          {/* Keyboard hints */}
+          <div className='absolute top-6 left-6 text-white/70 text-sm'>
+            <div className='flex gap-4'>
+              <span>← → Navigate</span>
+              <span>ESC Close</span>
+            </div>
+          </div>
+        </div>
       )}
 
       {/* Related Projects */}

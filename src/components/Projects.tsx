@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import ProjectCard from './ProjectCard';
 import { projects } from '../data/portfolio-data';
 
@@ -5,6 +6,16 @@ import { projects } from '../data/portfolio-data';
  * Modern Projects section with enhanced layout and animations
  */
 function Projects(): React.JSX.Element {
+  const [showAllProjects, setShowAllProjects] = useState<boolean>(false);
+
+  const projectsToShow = 12;
+  const displayedProjects = showAllProjects ? projects : projects.slice(0, projectsToShow);
+  const hasMoreProjects = projects.length > projectsToShow;
+
+  const toggleShowAll = (): void => {
+    setShowAllProjects(!showAllProjects);
+  };
+
   return (
     <section
       id='projects'
@@ -47,26 +58,33 @@ function Projects(): React.JSX.Element {
 
         {/* Projects Grid */}
         <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-10'>
-          {projects.map((project, index) => (
+          {displayedProjects.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} />
           ))}
         </div>
 
-        {/* Bottom CTA */}
-        <div className='text-center mt-20 animate-fade-in-up' style={{ animationDelay: '600ms' }}>
-          <div className='inline-flex items-center px-6 py-3 bg-primary-500/10 border border-primary-400/30 rounded-2xl shadow-neon hover:shadow-tech-glow transition-all duration-300 group cursor-pointer'>
-            <span className='text-primary-300 font-medium mr-2 group-hover:text-primary-200 transition-colors duration-300'>
-              View All Projects
-            </span>
-            <svg
-              className='w-5 h-5 text-primary-400 group-hover:text-primary-300 group-hover:translate-x-1 transition-all duration-300'
-              fill='none'
-              stroke='currentColor'
-              viewBox='0 0 24 24'>
-              <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M17 8l4 4m0 0l-4 4m4-4H3' />
-            </svg>
+        {/* View All Projects Button */}
+        {hasMoreProjects && (
+          <div className='text-center mt-16 animate-fade-in-up' style={{ animationDelay: '600ms' }}>
+            <button
+              onClick={toggleShowAll}
+              className='group inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary-600 to-primary-500 text-white font-semibold rounded-2xl hover:from-primary-500 hover:to-primary-400 transition-all duration-300 transform hover:scale-105 shadow-tech-glow hover:shadow-glow-lg'>
+              <span className='relative z-10 flex items-center'>
+                {showAllProjects ? 'Show Less Projects' : `View All ${projects.length} Projects`}
+                <svg
+                  className={`w-5 h-5 ml-2 transform transition-transform duration-300 ${showAllProjects ? 'rotate-180' : 'rotate-0'}`}
+                  fill='none'
+                  stroke='currentColor'
+                  viewBox='0 0 24 24'>
+                  <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M19 9l-7 7-7-7' />
+                </svg>
+              </span>
+              <div className='absolute inset-0 bg-gradient-to-r from-primary-500 to-accent-500 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
+            </button>
+
+            {!showAllProjects && <p className='text-secondary-400 text-sm mt-4'>Showing 6 of {projects.length} projects</p>}
           </div>
-        </div>
+        )}
       </div>
     </section>
   );

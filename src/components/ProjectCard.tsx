@@ -31,9 +31,9 @@ function ProjectCard({ project, index }: ProjectCardProps): React.JSX.Element {
         <div className='absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500' />
 
         {/* Year Badge */}
-        <div className='absolute top-4 right-4 bg-primary-500/20 backdrop-blur-sm px-3 py-1.5 rounded-full text-sm font-semibold text-primary-300 border border-primary-400/30 shadow-neon'>
+        {/* <div className='absolute top-4 right-4 bg-primary-500/20 backdrop-blur-sm px-3 py-1.5 rounded-full text-sm font-semibold text-primary-300 border border-primary-400/30 shadow-neon'>
           {project.year}
-        </div>
+        </div> */}
 
         {/* Hover Overlay Content */}
         <div className='absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0'>
