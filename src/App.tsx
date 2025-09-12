@@ -18,6 +18,14 @@ function App(): React.JSX.Element {
   const projectSlug = isProjectPage ? currentPath.split('/project/')[1] : null;
   const project = projectSlug ? getProjectBySlug(projectSlug) : null;
 
+  // Redirect to home if project not found
+  useEffect(() => {
+    if (isProjectPage && !project) {
+      console.warn(`Project not found for slug: ${projectSlug}`);
+      window.location.href = '/';
+    }
+  }, [isProjectPage, project, projectSlug]);
+
   // Handle hash navigation when coming from project pages
   useEffect(() => {
     if (!isProjectPage && window.location.hash) {
@@ -37,7 +45,25 @@ function App(): React.JSX.Element {
   const handleContactClick = (): void => handleSectionClick('contact');
 
   // If we're on a project detail page, show the project detail component
-  if (isProjectPage && project) {
+  if (isProjectPage) {
+    if (!project) {
+      return (
+        <ThemeProvider>
+          <div className='font-sans text-white bg-gradient-to-br from-secondary-950 via-secondary-900 to-primary-950 min-h-screen flex items-center justify-center'>
+            <div className='text-center'>
+              <h1 className='text-2xl font-bold text-primary-400 mb-4'>Project Not Found</h1>
+              <p className='text-secondary-300 mb-6'>The project you're looking for doesn't exist.</p>
+              <button
+                onClick={() => (window.location.href = '/')}
+                className='px-6 py-3 bg-primary-500 text-white rounded-lg hover:bg-primary-400 transition-colors'>
+                Back to Home
+              </button>
+            </div>
+          </div>
+        </ThemeProvider>
+      );
+    }
+
     return (
       <ThemeProvider>
         <div className='font-sans text-white bg-gradient-to-br from-secondary-950 via-secondary-900 to-primary-950 min-h-screen'>
