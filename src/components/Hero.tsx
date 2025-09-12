@@ -38,7 +38,7 @@ function Hero({ onProjectsClick, onContactClick }: HeroProps): React.JSX.Element
       <div className='relative z-10 max-w-7xl mx-auto px-6 text-center'>
         <div className='mb-12 animate-fade-in-up'>
           {/* Badge */}
-          <div className='inline-flex items-center px-6 py-3 mb-8 bg-primary-500/10 backdrop-blur-sm border border-primary-400/30 rounded-full text-sm font-medium text-primary-300 shadow-neon'>
+          <div className='inline-flex items-center px-6 py-3 mt-16 mb-8 bg-primary-500/10 backdrop-blur-sm border border-primary-400/30 rounded-full text-sm font-medium text-primary-300 shadow-neon'>
             <span className='w-2 h-2 bg-primary-400 rounded-full mr-3 animate-glow-pulse'></span>
             Senior Designer • Available for Projects
           </div>
@@ -94,7 +94,7 @@ function Hero({ onProjectsClick, onContactClick }: HeroProps): React.JSX.Element
         </div>
 
         {/* Scroll Indicator */}
-        <div className='absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce'>
+        <div className='absolute bottom-[-50px] left-1/2 transform -translate-x-1/2 animate-bounce'>
           <div className='flex flex-col items-center text-primary-400'>
             <span className='text-sm font-medium mb-2'>Scroll to explore</span>
             <div className='w-6 h-10 border-2 border-primary-400/50 rounded-full flex justify-center'>
