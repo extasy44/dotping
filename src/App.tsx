@@ -4,7 +4,6 @@ import { scrollToSection } from './utils/helpers';
 import { Navigation, Hero, Projects, About, Contact, Footer, ProjectDetail } from './components';
 import { getProjectBySlug } from './data/portfolio-data';
 import ThemeProvider from './components/ThemeProvider';
-import PortfolioDataExample from './components/PortfolioDataExample';
 
 /**
  * Main App component for the portfolio website
@@ -71,7 +70,6 @@ function App(): React.JSX.Element {
         <div className='font-sans text-white bg-gradient-to-br from-secondary-950 via-secondary-900 to-primary-950 min-h-screen'>
           <Navigation activeSection={activeSection} onSectionClick={handleSectionClick} isProjectPage={true} />
           <ProjectDetail project={project} />
-          <PortfolioDataExample />
           <Footer onSectionClick={handleSectionClick} />
         </div>
       </ThemeProvider>
