@@ -84,7 +84,7 @@ function About(): React.JSX.Element {
 
               <div className='absolute -bottom-6 -left-6 w-32 h-32 bg-secondary-800/80 backdrop-blur-sm rounded-2xl shadow-tech-glow flex items-center justify-center border border-primary-400/30'>
                 <div className='text-center'>
-                  <div className='text-2xl font-bold text-primary-400'>8+</div>
+                  <div className='text-2xl font-bold text-primary-400'>12+</div>
                   <div className='text-sm text-secondary-300 font-medium'>Years Experience</div>
                 </div>
               </div>
