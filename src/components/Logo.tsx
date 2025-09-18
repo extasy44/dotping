@@ -23,7 +23,7 @@ export function Logo({ className = '', size = 'md', showText = true }: LogoProps
 
   return (
     <div className={`flex items-center gap-3 ${className}`}>
-      <img src='/src/assets/JB.png' alt={logoInfo.alt} className={`${sizeClasses[size]} object-contain`} />
+      <img src='/assets/JB.png' alt={logoInfo.alt} className={`${sizeClasses[size]} object-contain`} />
       {showText && <div className={`font-semibold text-gray-800 dark:text-gray-200 ${textSizeClasses[size]}`}>Creative Designer</div>}
     </div>
   );
