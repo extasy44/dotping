@@ -11,6 +11,7 @@ interface ProjectCardProps {
  */
 function ProjectCard({ project, index }: ProjectCardProps): React.JSX.Element {
   const [, setIsHovered] = useState<boolean>(false);
+  const hasImage = typeof project.imageUrl === 'string' && project.imageUrl.trim().length > 0;
 
   return (
     <div
@@ -21,11 +22,18 @@ function ProjectCard({ project, index }: ProjectCardProps): React.JSX.Element {
       onClick={() => (window.location.href = `/project/${project.slug}`)}>
       {/* Image Container */}
       <div className='relative overflow-hidden aspect-[4/3]'>
-        <img
-          src={project.imageUrl}
-          alt={project.title}
-          className='w-full h-full object-cover transition-transform duration-700 group-hover:scale-110'
-        />
+        {hasImage ? (
+          <img
+            src={project.imageUrl}
+            alt={project.title}
+            className='w-full h-full object-cover transition-transform duration-700 group-hover:scale-110'
+            loading='lazy'
+          />
+        ) : (
+          <div className='w-full h-full flex items-center justify-center bg-gradient-to-br from-secondary-700 to-secondary-800 text-secondary-300'>
+            <span className='px-4 text-center text-sm'>Image coming soon</span>
+          </div>
+        )}
 
         {/* Gradient Overlay */}
         <div className='absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500' />

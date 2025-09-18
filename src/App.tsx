@@ -1,16 +1,17 @@
 import { useEffect } from 'react';
-import { useActiveSection } from './hooks/usePortfolio';
+import { useActiveSection } from './hooks/useActiveSection';
 import { scrollToSection } from './utils/helpers';
 import { Navigation, Hero, Projects, About, Contact, Footer, ProjectDetail } from './components';
 import { getProjectBySlug } from './data/portfolio-data';
 import ThemeProvider from './components/ThemeProvider';
+import PortfolioDataExample from './components/PortfolioDataExample';
 
 /**
  * Main App component for the portfolio website
  * Uses custom hooks and utility functions for clean separation of concerns
  */
 function App(): React.JSX.Element {
-  const activeSection = useActiveSection();
+  const [activeSection, setActiveSection] = useActiveSection();
 
   // Check if we're on a project detail page
   const currentPath = window.location.pathname;
@@ -38,6 +39,7 @@ function App(): React.JSX.Element {
 
   // Event handlers for smooth scrolling
   const handleSectionClick = (sectionId: string): void => {
+    setActiveSection(sectionId);
     scrollToSection(sectionId, 80); // Account for fixed header
   };
 
@@ -69,6 +71,7 @@ function App(): React.JSX.Element {
         <div className='font-sans text-white bg-gradient-to-br from-secondary-950 via-secondary-900 to-primary-950 min-h-screen'>
           <Navigation activeSection={activeSection} onSectionClick={handleSectionClick} isProjectPage={true} />
           <ProjectDetail project={project} />
+          <PortfolioDataExample />
           <Footer onSectionClick={handleSectionClick} />
         </div>
       </ThemeProvider>

@@ -1,0 +1,151 @@
+{
+  "logoInfo": {
+    "imageUrl": "https://d3qyzk1t4w1lja.cloudfront.net/Images/JB.png",
+    "alt": "JB Creative Designer Logo",
+    "title": "Creative Designer",
+    "subtitle": "Brand Identity & Digital Design"
+  },
+  "projects": [
+    {
+      "id": 1,
+      "title": "Property Council of Australia",
+      "slug": "property-council-australia",
+      "description": "A comprehensive UX/UI design project for the Property Council of Australia, focusing on creating an intuitive resource platform for property industry professionals.",
+      "longDescription": "This project involved designing a comprehensive digital platform for the Property Council of Australia, focusing on creating an intuitive resource hub for property industry professionals. The design emphasizes clean navigation, accessible information architecture, and user-centered design principles to help professionals access critical industry resources efficiently.",
+      "imageUrl": "https://d3qyzk1t4w1lja.cloudfront.net/Images/Resource-page2.jpg",
+      "images": [
+        "https://d3qyzk1t4w1lja.cloudfront.net/Images/Handoverbook_Cover.jpg",
+        "https://d3qyzk1t4w1lja.cloudfront.net/Images/Handoverbook2-copy.jpg",
+        "https://d3qyzk1t4w1lja.cloudfront.net/Images/Handoverbook1.jpg",
+        "https://d3qyzk1t4w1lja.cloudfront.net/Images/Google_Ads.jpg",
+        "https://d3qyzk1t4w1lja.cloudfront.net/Images/Banner.jpg",
+        "https://d3qyzk1t4w1lja.cloudfront.net/Images/UI.jpg",
+        "https://d3qyzk1t4w1lja.cloudfront.net/Images/UI2.jpg",
+        "https://d3qyzk1t4w1lja.cloudfront.net/Images/Industry-Campaign_Homepage_Final.jpg",
+        "https://d3qyzk1t4w1lja.cloudfront.net/Images/PCA-Diversity-Our-Women-Leaders2.jpg"
+      ],
+      "category": "UX & UI",
+      "year": "2019",
+      "tags": ["UX & UI", "WEB"],
+      "client": "Property Council of Australia",
+      "role": "UX/UI Designer",
+      "duration": "3 months",
+      "tools": ["Figma", "Photoshop"],
+      "challenges": "Creating an intuitive navigation system for complex industry resources while maintaining accessibility standards.",
+      "solutions": "Implemented card-based layout with clear categorization and search functionality.",
+      "results": "The client was satisfied, and it was expected that user engagement would increase and become more active."
+    },
+    {
+      "id": 2,
+      "title": "Fischer Storage Range Catalogue",
+      "slug": "fischer-storage-range-catalogue",
+      "description": "A complete product catalogue design project for Fischer Plastic Products, showcasing their extensive range of storage solutions for industrial, commercial, and home applications.",
+      "longDescription": "This project involved designing the Fischer Storage Range Catalogue, highlighting a wide variety of durable and versatile storage solutions. The design focuses on clear product categorisation, high-quality imagery, and consistent branding to make it easy for customers to navigate and select the right storage solutions for their needs.",
+      "imageUrl": "",
+      "images": [],
+      "category": "Catalogue Design & Branding",
+      "year": "2025",
+      "tags": ["Catalogue Design", "Branding", "Product Photography", "Print Design"],
+      "client": "Fischer Plastic Products",
+      "role": "Graphic Designer",
+      "duration": "2 months",
+      "tools": ["Adobe InDesign", "Adobe Illustrator", "Photoshop"],
+      "challenges": "Showcasing a wide range of products clearly while maintaining cohesive brand identity and usability for diverse customers.",
+      "solutions": "Used clear categorisation, high-quality product photography, and consistent design language across the catalogue to enhance readability and product discoverability.",
+      "results": "Successfully listed products while maintaining brand identity, and designed the e-catalogue to be printable as a physical version."
+    },
+    {
+      "id": 3,
+      "title": "Uppercup Website Design",
+      "slug": "uppercup-website-design",
+      "description": "A website design project for Uppercup, focused on creating an engaging and user-friendly online presence for their brand.",
+      "longDescription": "This project involved designing a responsive and visually appealing website for Uppercup, ensuring an intuitive user experience and seamless navigation. The design highlights the brand's identity, products, and services, integrating modern UI/UX principles to enhance user engagement and online visibility.",
+      "imageUrl": "https://d3qyzk1t4w1lja.cloudfront.net/Images/Uppercup_website.jpg",
+      "images": [
+        "https://d3qyzk1t4w1lja.cloudfront.net/Images/Uppercup_website.jpg",
+        "https://d3qyzk1t4w1lja.cloudfront.net/Images/uppercup_Draft_cp1.jpg",
+        "https://d3qyzk1t4w1lja.cloudfront.net/Images/uppercup_Draft_subpage1-3.jpg"
+      ],
+      "category": "Web Design & UX/UI",
+      "year": "2021",
+      "tags": ["Web Design", "UX/UI", "Branding"],
+      "client": "Uppercup",
+      "role": "Web & UX/UI Designer",
+      "duration": "1 month",
+      "tools": ["Adobe XD", "Hubspot"],
+      "challenges": "Creating a website that clearly conveys the brand identity while ensuring smooth navigation across devices.",
+      "solutions": "Implemented a responsive design with a clean layout, clear product categorisation, and engaging visuals to enhance user experience.",
+      "results": "Delivered a visually appealing and easy-to-navigate website that increased user engagement and strengthened the brand's online presence."
+    },
+    {
+      "id": 4,
+      "title": "Sleep Australasia® Project",
+      "slug": "sleep-australasia-project",
+      "description": "A comprehensive branding and design project under SlumberCare Bedding, creating a sub-brand identity with digital and print assets.",
+      "longDescription": "This project, completed during my time at SlumberCare Bedding, involved the creation of the Sleep Australasia® sub-brand. The work included developing a distinct brand identity, designing a responsive website, and producing a wide range of supporting materials such as brochures, catalogues, packaging, and advertising assets. The goal was to strengthen market presence and clearly differentiate the sub-brand within the bedding industry.",
+      "imageUrl": "https://d3qyzk1t4w1lja.cloudfront.net/Images/Brand-guide.jpg",
+      "images": [
+        "https://d3qyzk1t4w1lja.cloudfront.net/Images/Brand-guide.jpg",
+        "https://d3qyzk1t4w1lja.cloudfront.net/Images/logo.png",
+        "https://d3qyzk1t4w1lja.cloudfront.net/Images/Box-design.jpg",
+        "https://d3qyzk1t4w1lja.cloudfront.net/Images/Photo1.jpg"
+      ],
+      "category": "Branding, Web & Print Design",
+      "year": "2017",
+      "tags": ["Branding", "Web Design", "Print Design", "Advertising"],
+      "client": "SlumberCare Bedding",
+      "role": "Brand, Graphic & Web Designer",
+      "duration": "6 months",
+      "tools": ["Adobe InDesign", "Adobe Illustrator", "Photoshop", "WordPress"],
+      "challenges": "Creating a new sub-brand that maintains consistency with the parent brand while appealing to a different customer segment.",
+      "solutions": "Developed a cohesive sub-brand identity, designed a modern and responsive website, and created a full suite of marketing and advertising materials.",
+      "results": "Successfully launched a distinct sub-brand that enhanced SlumberCare's market positioning and provided a strong platform for growth."
+    },
+    {
+      "id": 5,
+      "title": "Therapedic® Project",
+      "slug": "therapedic-project",
+      "description": "A project at SlumberCare Bedding to localise the leading US brand Therapedic® for the Australian market and create a full range of design assets.",
+      "longDescription": "The Therapedic® project involved rebranding the leading US bedding brand, for which SlumberCare Bedding holds the exclusive distribution rights, to suit the Australian market. The work included designing a new company website, packaging, brochures, catalogues, promotional materials, and preparing exhibition assets. The goal was to establish a strong brand presence and effectively position Therapedic® within the Australian bedding industry.",
+      "imageUrl": "https://d3qyzk1t4w1lja.cloudfront.net/Images/Website_all-1.jpg",
+      "images": [
+        "https://d3qyzk1t4w1lja.cloudfront.net/Images/Website_all-1.jpg",
+        "https://d3qyzk1t4w1lja.cloudfront.net/Images/Therapedic_Emblem.jpg",
+        "https://d3qyzk1t4w1lja.cloudfront.net/Images/Square_Brochure.jpg",
+        "https://d3qyzk1t4w1lja.cloudfront.net/Images/Website.jpg"
+      ],
+      "category": "Branding, Web & Print Design",
+      "year": "2017",
+      "tags": ["Branding", "Web Design", "Print Design", "Packaging"],
+      "client": "SlumberCare Bedding",
+      "role": "Brand, Graphic & Web Designer",
+      "duration": "7 months",
+      "tools": ["Adobe InDesign", "Adobe Illustrator", "Photoshop", "WordPress"],
+      "challenges": "Maintaining the US brand identity while adapting the design and communication to suit the Australian market.",
+      "solutions": "Developed a locally adapted visual identity, designed the website, packaging, and a wide range of promotional assets to ensure brand consistency.",
+      "results": "Successfully localised the Therapedic® brand, strengthening its position as one of SlumberCare's core brands in the Australian market."
+    }
+  ],
+  "navigationItems": [
+    { "id": "hero", "label": "Home" },
+    { "id": "projects", "label": "Work" },
+    { "id": "about", "label": "About" },
+    { "id": "contact", "label": "Contact" }
+  ],
+  "skills": [
+    "Brand Identity",
+    "UX & UI Design",
+    "Web Development",
+    "Print Design",
+    "Packaging Design",
+    "Photography",
+    "Signage Design",
+    "Product Design"
+  ],
+  "contactInfo": {
+    "email": "leojiyun@gmail.com",
+    "phone": "0433 009 116",
+    "location": "Melbourne, Australia",
+    "availability": "Available for new projects"
+  }
+}

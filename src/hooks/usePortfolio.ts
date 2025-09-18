@@ -1,117 +1,54 @@
 import { useState, useEffect } from 'react';
-import { debounce } from '../utils/helpers';
+import { PortfolioData, Project, NavigationItem, LogoInfo, ContactInfo } from '../services/portfolio-service';
+import { fetchPortfolioData } from '../services/portfolio-service';
+
+interface UsePortfolioReturn {
+  data: PortfolioData | null;
+  loading: boolean;
+  error: string | null;
+  projects: Project[];
+  navigationItems: NavigationItem[];
+  logoInfo: LogoInfo | null;
+  contactInfo: ContactInfo | null;
+  skills: string[];
+}
 
 /**
- * Custom hook for managing active section based on scroll position
+ * Custom hook for managing portfolio data
  */
-export function useActiveSection(sections: string[] = ['hero', 'projects', 'about', 'contact']): string {
-  const [activeSection, setActiveSection] = useState<string>('hero');
+export function usePortfolio(): UsePortfolioReturn {
+  const [data, setData] = useState<PortfolioData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const handleScroll = debounce(() => {
-      const scrollPosition = window.scrollY + 100;
-
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const offsetTop = element.offsetTop;
-          const offsetBottom = offsetTop + element.offsetHeight;
-
-          if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
-            setActiveSection(section);
-            break;
-          }
-        }
+    const loadPortfolioData = async (): Promise<void> => {
+      try {
+        setLoading(true);
+        setError(null);
+        const portfolioData = await fetchPortfolioData();
+        setData(portfolioData);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to load portfolio data');
+        console.error('Error loading portfolio data:', err);
+      } finally {
+        setLoading(false);
       }
-    }, 100);
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [sections]);
-
-  return activeSection;
-}
-
-/**
- * Custom hook for managing scroll state
- */
-export function useScrolling(): boolean {
-  const [isScrolling, setIsScrolling] = useState<boolean>(false);
-
-  const handleScrollStart = (): void => setIsScrolling(true);
-  const handleScrollEnd = debounce((): void => setIsScrolling(false), 150);
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScrollStart);
-    window.addEventListener('scroll', handleScrollEnd);
-
-    return () => {
-      window.removeEventListener('scroll', handleScrollStart);
-      window.removeEventListener('scroll', handleScrollEnd);
-    };
-  }, [handleScrollEnd]);
-
-  return isScrolling;
-}
-
-interface FormValues {
-  [key: string]: string;
-}
-
-interface FormErrors {
-  [key: string]: string;
-}
-
-interface FormHandlers {
-  values: FormValues;
-  errors: FormErrors;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  handleSubmit: (onSubmit: (values: FormValues) => void) => (e: React.FormEvent) => void;
-  reset: () => void;
-  setErrors: React.Dispatch<React.SetStateAction<FormErrors>>;
-}
-
-/**
- * Custom hook for managing form state
- */
-export function useForm(initialValues: FormValues = {}): FormHandlers {
-  const [values, setValues] = useState<FormValues>(initialValues);
-  const [errors, setErrors] = useState<FormErrors>({});
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-    const { name, value } = e.target;
-    setValues((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-
-    // Clear error when user starts typing
-    if (errors[name]) {
-      setErrors((prev) => ({
-        ...prev,
-        [name]: '',
-      }));
-    }
-  };
-
-  const handleSubmit =
-    (onSubmit: (values: FormValues) => void) =>
-    (e: React.FormEvent): void => {
-      e.preventDefault();
-      onSubmit(values);
     };
 
-  const reset = (): void => {
-    setValues(initialValues);
-    setErrors({});
-  };
+    loadPortfolioData();
+  }, []);
 
   return {
-    values,
-    errors,
-    handleChange,
-    handleSubmit,
-    reset,
-    setErrors,
+    data,
+    loading,
+    error,
+    projects: data?.projects || [],
+    navigationItems: data?.navigationItems || [],
+    logoInfo: data?.logoInfo || null,
+    contactInfo: data?.contactInfo || null,
+    skills: data?.skills || [],
   };
 }
+
+export default usePortfolio;

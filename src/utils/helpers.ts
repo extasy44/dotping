@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // Utility functions for the portfolio application
 
+// Re-export S3 utilities
+export * from './s3-utils';
+
 /**
  * Smoothly scrolls to a section by ID
  */

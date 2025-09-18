@@ -1,5 +1,5 @@
 import { contactInfo } from '../data/portfolio-data';
-import { useForm } from '../hooks/usePortfolio';
+import { useForm } from '../hooks/useActiveSection';
 
 /**
  * Modern Contact section with enhanced form design and visual elements
@@ -11,18 +11,25 @@ function Contact(): React.JSX.Element {
     message: '',
   });
 
-  const onSubmit = (values: { [key: string]: string }): void => {
-    console.log('Form submitted:', values);
+  const onSubmit = async (formValues: { name: string; email: string; message: string }): Promise<void> => {
+    console.log('Form submitted:', formValues);
     // Create mailto link for email
-    const subject = encodeURIComponent(`Portfolio Contact from ${values.name}`);
-    const body = encodeURIComponent(`Name: ${values.name}\nEmail: ${values.email}\n\nMessage:\n${values.message}`);
+    const subject = encodeURIComponent(`Portfolio Contact from ${formValues.name}`);
+    const body = encodeURIComponent(`Name: ${formValues.name}\nEmail: ${formValues.email}\n\nMessage:\n${formValues.message}`);
     const mailtoLink = `mailto:${contactInfo.email}?subject=${subject}&body=${body}`;
 
     // Open email client
     window.open(mailtoLink);
+  };
 
-    // Show success message
-    alert('Thank you for your message! Your email client should open with a pre-filled message.');
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+    handleSubmit(onSubmit);
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+    const { name, value } = e.target;
+    handleChange(name as keyof typeof values, value);
   };
 
   return (
@@ -117,7 +124,7 @@ function Contact(): React.JSX.Element {
 
           {/* Contact Form */}
           <div className='animate-fade-in-right'>
-            <form onSubmit={handleSubmit(onSubmit)} className='space-y-6'>
+            <form onSubmit={handleFormSubmit} className='space-y-6'>
               <div>
                 <label htmlFor='name' className='block text-sm font-semibold text-neutral-700 mb-3'>
                   Full Name
@@ -127,7 +134,7 @@ function Contact(): React.JSX.Element {
                   id='name'
                   name='name'
                   value={values.name}
-                  onChange={handleChange}
+                  onChange={handleInputChange}
                   className='w-full px-4 py-4 border border-neutral-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 bg-white shadow-soft hover:shadow-medium'
                   placeholder='Your full name'
                   required
@@ -143,7 +150,7 @@ function Contact(): React.JSX.Element {
                   id='email'
                   name='email'
                   value={values.email}
-                  onChange={handleChange}
+                  onChange={handleInputChange}
                   className='w-full px-4 py-4 border border-neutral-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 bg-white shadow-soft hover:shadow-medium'
                   placeholder='your.email@example.com'
                   required
@@ -158,7 +165,7 @@ function Contact(): React.JSX.Element {
                   id='message'
                   name='message'
                   value={values.message}
-                  onChange={handleChange}
+                  onChange={handleInputChange}
                   rows={6}
                   className='w-full px-4 py-4 border border-neutral-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 resize-none bg-white shadow-soft hover:shadow-medium'
                   placeholder='Tell me about your project, timeline, and any specific requirements...'

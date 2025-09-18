@@ -9,3 +9,4 @@ export { default as Contact } from './Contact';
 export { default as Footer } from './Footer';
 export { default as ThemeProvider } from './ThemeProvider';
 export { default as ThemeSwitcher } from './ThemeSwitcher';
+export { default as Logo } from './Logo';

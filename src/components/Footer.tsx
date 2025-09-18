@@ -1,4 +1,5 @@
-import { navigationItems } from '../data/portfolio-data';
+import { navigationItems, contactInfo } from '../data/portfolio-data';
+import Logo from './Logo';
 
 interface FooterProps {
   onSectionClick: (sectionId: string) => void;
@@ -13,17 +14,17 @@ function Footer({ onSectionClick }: FooterProps): React.JSX.Element {
       {/* Tech Background Elements */}
       <div className="absolute top-0 left-0 w-full h-full bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%230ea5e9%22%20fill-opacity%3D%220.03%22%3E%3Ccircle%20cx%3D%2230%22%20cy%3D%2230%22%20r%3D%221%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-30" />
       <div className='absolute top-10 right-10 w-64 h-64 bg-primary-500/10 rounded-full blur-3xl animate-glow-pulse' />
-      <div className='absolute bottom-10 left-10 w-80 h-80 bg-accent-500/10 rounded-full blur-3xl animate-glow-pulse' style={{ animationDelay: '2s' }} />
+      <div
+        className='absolute bottom-10 left-10 w-80 h-80 bg-accent-500/10 rounded-full blur-3xl animate-glow-pulse'
+        style={{ animationDelay: '2s' }}
+      />
 
       <div className='max-w-7xl mx-auto px-6 relative z-10'>
         <div className='grid grid-cols-1 md:grid-cols-4 gap-12'>
           {/* Brand Section */}
           <div className='md:col-span-2'>
-            <div className='flex items-center space-x-3 mb-6'>
-              <div className='w-12 h-12 bg-gradient-to-br from-primary-500 to-accent-500 rounded-2xl flex items-center justify-center shadow-neon'>
-                <span className='text-white font-bold text-xl'>AB</span>
-              </div>
-              <span className='text-2xl font-bold'>Anna Bang</span>
+            <div className='mb-6'>
+              <Logo size='md' showText={true} />
             </div>
             <p className='text-secondary-300 text-lg leading-relaxed mb-8 max-w-md'>
               Senior Designer creating comprehensive brand experiences and visual solutions that connect with audiences across all
@@ -103,7 +104,7 @@ function Footer({ onSectionClick }: FooterProps): React.JSX.Element {
                     d='M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z'
                   />
                 </svg>
-                <span className='text-secondary-300'>anna.bang@example.com</span>
+                <span className='text-secondary-300'>{contactInfo.email}</span>
               </div>
               <div className='flex items-start'>
                 <svg className='w-5 h-5 text-primary-400 mr-3 mt-1' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
@@ -115,7 +116,7 @@ function Footer({ onSectionClick }: FooterProps): React.JSX.Element {
                   />
                   <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M15 11a3 3 0 11-6 0 3 3 0 016 0z' />
                 </svg>
-                <span className='text-secondary-300'>Melbourne, Australia</span>
+                <span className='text-secondary-300'>{contactInfo.location}</span>
               </div>
             </div>
           </div>

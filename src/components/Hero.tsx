@@ -1,3 +1,5 @@
+import Logo from './Logo';
+
 interface HeroProps {
   onProjectsClick: () => void;
   onContactClick: () => void;
@@ -44,12 +46,15 @@ function Hero({ onProjectsClick, onContactClick }: HeroProps): React.JSX.Element
           </div>
 
           {/* Main Heading */}
-          <h1 className='text-6xl md:text-8xl lg:text-9xl font-bold text-white mb-8 leading-tight tracking-tight'>
-            <span className='block animate-hologram'>Anna Bang</span>
-            <span className='block bg-gradient-to-r from-primary-400 via-primary-300 to-accent-400 bg-clip-text text-transparent animate-tech-shimmer'>
-              Creative Technologist
-            </span>
-          </h1>
+          <div className='mb-8'>
+            <Logo size='xl' showText={true} className='justify-center mb-6' />
+            <h1 className='text-6xl md:text-8xl lg:text-9xl font-bold text-white mb-8 leading-tight tracking-tight'>
+              <span className='block animate-hologram'>Creative Designer</span>
+              <span className='block bg-gradient-to-r from-primary-400 via-primary-300 to-accent-400 bg-clip-text text-transparent animate-tech-shimmer'>
+                Brand & Digital Innovation
+              </span>
+            </h1>
+          </div>
 
           {/* Subtitle */}
           <p className='text-xl md:text-2xl lg:text-3xl text-secondary-300 max-w-4xl mx-auto leading-relaxed font-light mb-12'>

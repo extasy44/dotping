@@ -142,7 +142,13 @@ function ProjectDetail({ project }: ProjectDetailProps): React.JSX.Element {
             {/* Main Image */}
             <div className='animate-fade-in-right'>
               <div className='relative overflow-hidden rounded-3xl shadow-large'>
-                <img src={project.imageUrl} alt={project.title} className='w-full h-[500px] object-cover' />
+                {project.imageUrl?.trim().length ? (
+                  <img src={project.imageUrl} alt={project.title} className='w-full h-[500px] object-cover' loading='lazy' />
+                ) : (
+                  <div className='w-full h-[500px] flex items-center justify-center bg-secondary-800 text-secondary-300'>
+                    <span className='px-4 text-center'>Hero image coming soon</span>
+                  </div>
+                )}
                 <div className='absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent rounded-3xl' />
               </div>
             </div>
@@ -232,13 +238,23 @@ function ProjectDetail({ project }: ProjectDetailProps): React.JSX.Element {
                 onClick={() => openFullscreen(selectedImageIndex)}>
                 {/* Image with smooth transition */}
                 <div className='relative w-full h-[600px] overflow-hidden'>
-                  <img
-                    src={project.images[selectedImageIndex]}
-                    alt={`${project.title} - Image ${selectedImageIndex + 1}`}
-                    className={`w-full h-full object-cover transition-all duration-500 ease-in-out ${
-                      isImageTransitioning ? 'opacity-0 scale-105' : 'opacity-100 scale-100'
-                    }`}
-                  />
+                  {project.images?.[selectedImageIndex]?.trim().length ? (
+                    <img
+                      src={project.images[selectedImageIndex]}
+                      alt={`${project.title} - Image ${selectedImageIndex + 1}`}
+                      className={`w-full h-full object-cover transition-all duration-500 ease-in-out ${
+                        isImageTransitioning ? 'opacity-0 scale-105' : 'opacity-100 scale-100'
+                      }`}
+                      loading='lazy'
+                    />
+                  ) : (
+                    <div
+                      className={`w-full h-full flex items-center justify-center bg-secondary-800 text-secondary-300 transition-all duration-500 ${
+                        isImageTransitioning ? 'opacity-0 scale-105' : 'opacity-100 scale-100'
+                      }`}>
+                      <span className='px-4 text-center'>Gallery image coming soon</span>
+                    </div>
+                  )}
 
                   {/* Loading overlay during transition */}
                   {isImageTransitioning && (
@@ -281,11 +297,18 @@ function ProjectDetail({ project }: ProjectDetailProps): React.JSX.Element {
                       ? 'ring-4 ring-primary-400 shadow-neon scale-105'
                       : 'hover:shadow-tech-glow hover:scale-105'
                   } ${isImageTransitioning ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}>
-                  <img
-                    src={image}
-                    alt={`${project.title} - Thumbnail ${index + 1}`}
-                    className='w-full h-32 object-cover transition-transform duration-300 group-hover:scale-110'
-                  />
+                  {image?.trim().length ? (
+                    <img
+                      src={image}
+                      alt={`${project.title} - Thumbnail ${index + 1}`}
+                      className='w-full h-32 object-cover transition-transform duration-300 group-hover:scale-110'
+                      loading='lazy'
+                    />
+                  ) : (
+                    <div className='w-full h-32 flex items-center justify-center bg-secondary-800 text-secondary-300'>
+                      <span className='px-2 text-xs'>Image soon</span>
+                    </div>
+                  )}
 
                   {/* Thumbnail overlay */}
                   <div className='absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100'>
@@ -355,20 +378,26 @@ function ProjectDetail({ project }: ProjectDetailProps): React.JSX.Element {
           {/* Main image with smooth transition */}
           <div className='relative w-full h-full flex items-center justify-center fullscreen-image-container'>
             <div className='relative w-full h-full flex items-center justify-center'>
-              <img
-                key={fullscreenImageIndex} // Force re-render for smooth transition
-                src={project.images[fullscreenImageIndex]}
-                alt={`${project.title} - Full size ${fullscreenImageIndex + 1}`}
-                className='fullscreen-image rounded-lg shadow-2xl transition-all duration-500 ease-in-out animate-fade-in'
-                style={{
-                  maxWidth: '100vw',
-                  maxHeight: '90vh',
-                  width: 'auto',
-                  height: 'auto',
-                  objectFit: 'contain',
-                  objectPosition: 'center',
-                }}
-              />
+              {project.images?.[fullscreenImageIndex]?.trim().length ? (
+                <img
+                  key={fullscreenImageIndex}
+                  src={project.images[fullscreenImageIndex]}
+                  alt={`${project.title} - Full size ${fullscreenImageIndex + 1}`}
+                  className='fullscreen-image rounded-lg shadow-2xl transition-all duration-500 ease-in-out animate-fade-in'
+                  style={{
+                    maxWidth: '100vw',
+                    maxHeight: '90vh',
+                    width: 'auto',
+                    height: 'auto',
+                    objectFit: 'contain',
+                    objectPosition: 'center',
+                  }}
+                />
+              ) : (
+                <div className='w-[80vw] h-[60vh] max-w-[100vw] max-h-[90vh] flex items-center justify-center bg-secondary-800 text-secondary-300 rounded-lg'>
+                  <span className='px-4'>Full image coming soon</span>
+                </div>
+              )}
             </div>
           </div>
 
@@ -389,7 +418,13 @@ function ProjectDetail({ project }: ProjectDetailProps): React.JSX.Element {
                       ? 'ring-2 ring-primary-400 shadow-neon'
                       : 'hover:ring-2 hover:ring-white/50 hover:shadow-glow'
                   }`}>
-                  <img src={image} alt={`Thumbnail ${index + 1}`} className='w-full h-full object-cover' />
+                  {image?.trim().length ? (
+                    <img src={image} alt={`Thumbnail ${index + 1}`} className='w-full h-full object-cover' loading='lazy' />
+                  ) : (
+                    <div className='w-full h-full flex items-center justify-center bg-secondary-800 text-secondary-300 text-[10px]'>
+                      Soon
+                    </div>
+                  )}
                 </button>
               ))}
             </div>
