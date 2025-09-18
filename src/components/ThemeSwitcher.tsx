@@ -93,20 +93,26 @@ function ThemeSwitcher({ className = '' }: ThemeSwitcherProps): React.JSX.Elemen
       {/* Theme Switcher Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className='flex items-center gap-3 px-4 py-2 bg-secondary-800/50 backdrop-blur-sm border border-primary-500/20 rounded-xl text-white hover:bg-secondary-700/50 hover:border-primary-400/30 transition-all duration-300 shadow-tech-glow'
+        className='flex items-center gap-3 px-4 py-2 bg-secondary-800/60 backdrop-blur-md border border-primary-500/20 rounded-xl text-white hover:bg-secondary-700/70 hover:border-primary-400/40 hover:scale-105 hover:shadow-neon transition-all duration-300 shadow-tech-glow group'
         aria-label='Theme switcher'>
         {/* Color Preview */}
-        <div className='flex gap-1'>
-          <div className='w-3 h-3 rounded-full border border-white/20' style={{ backgroundColor: currentThemeOption.colors.primary }} />
-          <div className='w-3 h-3 rounded-full border border-white/20' style={{ backgroundColor: currentThemeOption.colors.accent }} />
+        <div className='flex gap-1 group-hover:scale-110 transition-transform duration-300'>
+          <div
+            className='w-3 h-3 rounded-full border border-white/20 group-hover:border-white/40 transition-colors duration-300'
+            style={{ backgroundColor: currentThemeOption.colors.primary }}
+          />
+          <div
+            className='w-3 h-3 rounded-full border border-white/20 group-hover:border-white/40 transition-colors duration-300'
+            style={{ backgroundColor: currentThemeOption.colors.accent }}
+          />
         </div>
 
         {/* Theme Name */}
-        <span className='text-sm font-medium'>{currentThemeOption.name}</span>
+        <span className='text-sm font-medium group-hover:text-primary-300 transition-colors duration-300'>{currentThemeOption.name}</span>
 
         {/* Dropdown Arrow */}
         <svg
-          className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+          className={`w-4 h-4 transition-all duration-300 group-hover:text-primary-300 ${isOpen ? 'rotate-180' : ''}`}
           fill='none'
           stroke='currentColor'
           viewBox='0 0 24 24'>
@@ -121,7 +127,7 @@ function ThemeSwitcher({ className = '' }: ThemeSwitcherProps): React.JSX.Elemen
           <div className='fixed inset-0 z-40' onClick={() => setIsOpen(false)} />
 
           {/* Menu */}
-          <div className='absolute top-full right-0 mt-2 w-64 bg-secondary-800/95 backdrop-blur-md border border-primary-500/20 rounded-2xl shadow-tech-glow z-50 overflow-hidden'>
+          <div className='absolute top-full right-0 mt-2 w-64 bg-secondary-800 rounded-2xl shadow-tech-glow z-50 overflow-hidden animate-in slide-in-from-top-2 duration-300'>
             {/* Header */}
             <div className='px-4 py-3 border-b border-primary-500/20'>
               <h3 className='text-sm font-semibold text-white'>Choose Theme</h3>
@@ -134,19 +140,29 @@ function ThemeSwitcher({ className = '' }: ThemeSwitcherProps): React.JSX.Elemen
                 <button
                   key={option.id}
                   onClick={() => handleThemeSelect(option)}
-                  className={`w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-secondary-700/50 transition-colors duration-200 ${
+                  className={`w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-secondary-700/60 hover:scale-[1.02] hover:shadow-lg transition-all duration-300 group ${
                     currentTheme === option.id ? 'bg-primary-500/10 border-r-2 border-primary-400' : ''
                   }`}>
                   {/* Color Preview */}
-                  <div className='flex gap-1'>
-                    <div className='w-4 h-4 rounded-full border border-white/20' style={{ backgroundColor: option.colors.primary }} />
-                    <div className='w-4 h-4 rounded-full border border-white/20' style={{ backgroundColor: option.colors.accent }} />
+                  <div className='flex gap-1 group-hover:scale-110 transition-transform duration-300'>
+                    <div
+                      className='w-4 h-4 rounded-full border border-white/20 group-hover:border-white/40 transition-colors duration-300'
+                      style={{ backgroundColor: option.colors.primary }}
+                    />
+                    <div
+                      className='w-4 h-4 rounded-full border border-white/20 group-hover:border-white/40 transition-colors duration-300'
+                      style={{ backgroundColor: option.colors.accent }}
+                    />
                   </div>
 
                   {/* Theme Info */}
                   <div className='flex-1'>
-                    <div className='text-sm font-medium text-white'>{option.name}</div>
-                    <div className='text-xs text-secondary-300'>{option.description}</div>
+                    <div className='text-sm font-medium text-white group-hover:text-primary-300 transition-colors duration-300'>
+                      {option.name}
+                    </div>
+                    <div className='text-xs text-secondary-300 group-hover:text-secondary-200 transition-colors duration-300'>
+                      {option.description}
+                    </div>
                   </div>
 
                   {/* Selected Indicator */}
