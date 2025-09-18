@@ -67,8 +67,10 @@ function Projects(): React.JSX.Element {
         {hasMoreProjects && (
           <div className='text-center mt-16 animate-fade-in-up' style={{ animationDelay: '600ms' }}>
             <button
+              type='button'
               onClick={toggleShowAll}
-              className='group inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary-600 to-primary-500 text-white font-semibold rounded-2xl hover:from-primary-500 hover:to-primary-400 transition-all duration-300 transform hover:scale-105 shadow-tech-glow hover:shadow-glow-lg'>
+              className='group relative inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary-600 to-primary-500 text-white font-semibold rounded-2xl hover:from-primary-500 hover:to-primary-400 transition-all duration-300 transform hover:scale-105 shadow-tech-glow hover:shadow-glow-lg'
+              aria-expanded={showAllProjects}>
               <span className='relative z-10 flex items-center'>
                 {showAllProjects ? 'Show Less Projects' : `View All ${projects.length} Projects`}
                 <svg
@@ -79,7 +81,7 @@ function Projects(): React.JSX.Element {
                   <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M19 9l-7 7-7-7' />
                 </svg>
               </span>
-              <div className='absolute inset-0 bg-gradient-to-r from-primary-500 to-accent-500 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
+              <div className='absolute inset-0 bg-gradient-to-r from-primary-500 to-accent-500 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none' />
             </button>
 
             {!showAllProjects && <p className='text-secondary-400 text-sm mt-4'>Showing 6 of {projects.length} projects</p>}

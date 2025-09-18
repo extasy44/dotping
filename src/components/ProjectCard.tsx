@@ -10,28 +10,25 @@ interface ProjectCardProps {
  * Modern ProjectCard component with advanced animations and micro-interactions
  */
 function ProjectCard({ project, index }: ProjectCardProps): React.JSX.Element {
-  const [, setIsHovered] = useState<boolean>(false);
+  const [isNavigating, setIsNavigating] = useState(false);
   const hasImage = typeof project.imageUrl === 'string' && project.imageUrl.trim().length > 0;
 
-  const handleClick = (): void => {
-    // Fast navigation with immediate visual feedback
-    const card = document.querySelector(`[data-project-slug="${project.slug}"]`);
-    if (card) {
-      card.classList.add('opacity-75', 'scale-95');
-    }
-
-    // Navigate immediately
-    window.location.href = `/project/${project.slug}`;
+  const handleAnchorClick = (): void => {
+    if (isNavigating) return;
+    setIsNavigating(true);
   };
 
   return (
-    <div
+    <a
       data-project-slug={project.slug}
-      className='group relative bg-gradient-to-br from-secondary-900/50 to-secondary-800/30 backdrop-blur-sm rounded-2xl shadow-card-hover overflow-hidden transition-all duration-300 hover:shadow-tech-glow cursor-pointer border border-primary-500/20'
+      href={`/project/${project.slug}`}
+      onClick={handleAnchorClick}
+      className={`group block relative bg-gradient-to-br from-secondary-900/50 to-secondary-800/30 backdrop-blur-sm rounded-2xl shadow-card-hover overflow-hidden transition-all duration-300 hover:shadow-tech-glow cursor-pointer border border-primary-500/20 ${
+        isNavigating ? 'cursor-progress' : ''
+      }`}
       style={{ animationDelay: `${index * 100}ms` }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onClick={handleClick}>
+      aria-busy={isNavigating}
+      aria-label={`Open project ${project.title}`}>
       {/* Image Container */}
       <div className='relative overflow-hidden aspect-[4/3]'>
         {hasImage ? (
@@ -47,12 +44,10 @@ function ProjectCard({ project, index }: ProjectCardProps): React.JSX.Element {
           </div>
         )}
 
-        {/* Gradient Overlay */}
-        <div className='absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
+        <div className='absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10' />
 
-        {/* Hover Overlay Content */}
-        <div className='absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
-          <div className='bg-primary-500/90 backdrop-blur-sm px-6 py-3 rounded-xl border border-primary-400/50 shadow-tech-glow text-white font-semibold'>
+        <div className='absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20'>
+          <div className='bg-primary-500/90 backdrop-blur-sm px-6 py-3 rounded-xl border border-primary-400/50 shadow-tech-glow text-white font-semibold select-none'>
             View Details
           </div>
         </div>
@@ -100,9 +95,16 @@ function ProjectCard({ project, index }: ProjectCardProps): React.JSX.Element {
         </div>
       </div>
 
-      {/* Tech Glow Effect */}
-      <div className='absolute inset-0 bg-gradient-to-r from-primary-500/5 via-transparent to-accent-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none' />
-    </div>
+      {/* Tech Glow Effect (doesn't block clicks) */}
+      <div className='absolute inset-0 bg-gradient-to-r from-primary-500/5 via-transparent to-accent-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-0' />
+
+      {/* Loading Overlay when navigating */}
+      {isNavigating && (
+        <div className='absolute inset-0 z-30 bg-black/40 backdrop-blur-[2px] flex items-center justify-center'>
+          <div className='w-8 h-8 border-2 border-primary-300 border-t-transparent rounded-full animate-spin' />
+        </div>
+      )}
+    </a>
   );
 }
 
