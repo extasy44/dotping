@@ -114,10 +114,6 @@ function ProjectDetail({ project }: ProjectDetailProps): React.JSX.Element {
                   <p className='text-secondary-300'>{project.client}</p>
                 </div>
                 <div>
-                  <h3 className='text-sm font-semibold text-primary-400 mb-2'>Year</h3>
-                  <p className='text-secondary-300'>{project.year}</p>
-                </div>
-                <div>
                   <h3 className='text-sm font-semibold text-primary-400 mb-2'>Duration</h3>
                   <p className='text-secondary-300'>{project.duration}</p>
                 </div>
@@ -213,10 +209,6 @@ function ProjectDetail({ project }: ProjectDetailProps): React.JSX.Element {
                   <div className='flex justify-between'>
                     <span className='text-secondary-300'>Category</span>
                     <span className='font-semibold text-white'>{project.category}</span>
-                  </div>
-                  <div className='flex justify-between'>
-                    <span className='text-secondary-300'>Year</span>
-                    <span className='font-semibold text-white'>{project.year}</span>
                   </div>
                 </div>
               </div>
