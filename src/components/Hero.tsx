@@ -48,7 +48,7 @@ function Hero({ onProjectsClick, onContactClick }: HeroProps): React.JSX.Element
           {/* Main Heading */}
           <div className='mb-8'>
             <Logo size='xl' showText={true} className='justify-center mb-6' />
-            <h1 className='text-6xl md:text-8xl lg:text-9xl font-bold text-white mb-8 leading-tight tracking-tight'>
+            <h1 className='text-6xl md:text-6xl lg:text-8xl font-bold text-white mb-8 leading-tight tracking-tight'>
               <span className='block animate-hologram'>Creative Designer</span>
               <span className='block bg-gradient-to-r from-primary-400 via-primary-300 to-accent-400 bg-clip-text text-transparent animate-tech-shimmer'>
                 Brand & Digital Innovation
