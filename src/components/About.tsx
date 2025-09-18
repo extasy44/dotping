@@ -26,13 +26,13 @@ function About(): React.JSX.Element {
             <h2 className='text-5xl md:text-6xl font-bold text-white mb-8 leading-tight'>
               Meet
               <span className='block bg-gradient-to-r from-primary-400 via-primary-300 to-accent-400 bg-clip-text text-transparent animate-tech-shimmer'>
-                Anna Bang
+                Jiyun Bang
               </span>
             </h2>
 
             <div className='space-y-6 text-lg text-secondary-300 leading-relaxed'>
               <p className='font-light'>
-                I'm Anna Bang, a Senior Designer with extensive experience in{' '}
+                I'm Jiyun Bang, a Senior Designer with extensive experience in{' '}
                 <span className='font-medium text-primary-400'>brand identity</span>,{' '}
                 <span className='font-medium text-accent-400'>UX/UI design</span>, and comprehensive design solutions. My work spans across
                 multiple industries, creating memorable brand experiences that connect with audiences.
@@ -70,7 +70,7 @@ function About(): React.JSX.Element {
               {/* Main Image */}
               <div className='relative overflow-hidden rounded-3xl shadow-large'>
                 <img
-                  src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=600&fit=crop&crop=face'
+                  src='/assets/designer desk.png'
                   alt='Dot Ping Design'
                   className='w-full h-[500px] object-cover transition-transform duration-700 group-hover:scale-105'
                 />
@@ -79,7 +79,7 @@ function About(): React.JSX.Element {
 
               {/* Floating Elements */}
               <div className='absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-primary-500 to-accent-500 rounded-2xl shadow-neon flex items-center justify-center transform rotate-12 group-hover:rotate-6 transition-transform duration-500'>
-                <span className='text-white font-bold text-2xl'>AB</span>
+                <span className='text-white font-bold text-2xl'>JB</span>
               </div>
 
               <div className='absolute -bottom-6 -left-6 w-32 h-32 bg-secondary-800/80 backdrop-blur-sm rounded-2xl shadow-tech-glow flex items-center justify-center border border-primary-400/30'>

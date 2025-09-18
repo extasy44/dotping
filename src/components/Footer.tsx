@@ -125,7 +125,7 @@ function Footer({ onSectionClick }: FooterProps): React.JSX.Element {
         {/* Bottom Section */}
         <div className='border-t border-secondary-700/50 mt-12 pt-8'>
           <div className='flex flex-col md:flex-row justify-between items-center'>
-            <p className='text-secondary-400 text-sm mb-4 md:mb-0'>&copy; 2025 Anna Bang. All rights reserved.</p>
+            <p className='text-secondary-400 text-sm mb-4 md:mb-0'>&copy; 2025 Jiyun Bang. All rights reserved.</p>
             <div className='flex items-center space-x-6 text-sm text-secondary-400'>
               <a href='#' className='hover:text-primary-400 transition-colors duration-300'>
                 Privacy Policy
