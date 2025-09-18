@@ -47,7 +47,6 @@ function Navigation({ activeSection, onSectionClick, isProjectPage = false }: Na
           {/* Logo */}
           <button onClick={handleHomeClick} className='flex items-center space-x-3 hover:opacity-80 transition-opacity duration-300 group'>
             <Logo size='sm' showText={false} className='group-hover:scale-105 transition-transform duration-300' />
-            <span className='text-xl font-bold text-white group-hover:text-primary-300 transition-colors duration-300'>Jiyun Bang</span>
           </button>
 
           {/* Desktop Navigation */}

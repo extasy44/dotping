@@ -12,6 +12,7 @@ interface ProjectCardProps {
 function ProjectCard({ project, index }: ProjectCardProps): React.JSX.Element {
   const [isNavigating, setIsNavigating] = useState(false);
   const hasImage = typeof project.imageUrl === 'string' && project.imageUrl.trim().length > 0;
+  const displayCategory = Array.isArray(project.category) ? project.category[0] : project.category;
 
   const handleAnchorClick = (): void => {
     if (isNavigating) return;
@@ -58,7 +59,7 @@ function ProjectCard({ project, index }: ProjectCardProps): React.JSX.Element {
         {/* Category Badge */}
         <div className='flex items-center justify-between mb-3'>
           <span className='text-sm font-semibold text-primary-300 bg-primary-500/20 border border-primary-400/30 px-3 py-1.5 rounded-full'>
-            {project.category}
+            {displayCategory}
           </span>
         </div>
 

@@ -7,13 +7,26 @@ import { projects } from '../data/portfolio-data';
  */
 function Projects(): React.JSX.Element {
   const [showAllProjects, setShowAllProjects] = useState<boolean>(false);
+  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+
+  const categories = ['All', ...Array.from(new Set(projects.flatMap((p) => (Array.isArray(p.category) ? p.category : [p.category]))))];
 
   const projectsToShow = 12;
-  const displayedProjects = showAllProjects ? projects : projects.slice(0, projectsToShow);
-  const hasMoreProjects = projects.length > projectsToShow;
+  const filteredProjects =
+    selectedCategory === 'All'
+      ? projects
+      : projects.filter((p) => (Array.isArray(p.category) ? p.category.includes(selectedCategory) : p.category === selectedCategory));
+  const displayedProjects = showAllProjects ? filteredProjects : filteredProjects.slice(0, projectsToShow);
+  const hasMoreProjects = filteredProjects.length > projectsToShow;
 
   const toggleShowAll = (): void => {
     setShowAllProjects(!showAllProjects);
+  };
+
+  const handleCategoryClick = (cat: string): void => {
+    if (cat === selectedCategory) return;
+    setSelectedCategory(cat);
+    setShowAllProjects(false);
   };
 
   return (
@@ -56,6 +69,27 @@ function Projects(): React.JSX.Element {
           </p>
         </div>
 
+        {/* Categories */}
+        <div className='flex flex-wrap gap-2 justify-center mb-10'>
+          {categories.map((cat) => {
+            const isActive = cat === selectedCategory;
+            return (
+              <button
+                key={cat}
+                type='button'
+                onClick={() => handleCategoryClick(cat)}
+                aria-pressed={isActive}
+                className={`px-4 py-2 rounded-full text-sm font-medium border transition-colors duration-200 ${
+                  isActive
+                    ? 'bg-primary-500/20 text-primary-300 border-primary-400/40 shadow-neon'
+                    : 'bg-secondary-800/40 text-secondary-300 border-secondary-700 hover:bg-secondary-800/60'
+                }`}>
+                {cat}
+              </button>
+            );
+          })}
+        </div>
+
         {/* Projects Grid */}
         <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-10'>
           {displayedProjects.map((project, index) => (
@@ -72,7 +106,7 @@ function Projects(): React.JSX.Element {
               className='group relative inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary-600 to-primary-500 text-white font-semibold rounded-2xl hover:from-primary-500 hover:to-primary-400 transition-all duration-300 transform hover:scale-105 shadow-tech-glow hover:shadow-glow-lg'
               aria-expanded={showAllProjects}>
               <span className='relative z-10 flex items-center'>
-                {showAllProjects ? 'Show Less Projects' : `View All ${projects.length} Projects`}
+                {showAllProjects ? 'Show Less Projects' : `View All ${filteredProjects.length} Projects`}
                 <svg
                   className={`w-5 h-5 ml-2 transform transition-transform duration-300 ${showAllProjects ? 'rotate-180' : 'rotate-0'}`}
                   fill='none'
@@ -84,7 +118,11 @@ function Projects(): React.JSX.Element {
               <div className='absolute inset-0 bg-gradient-to-r from-primary-500 to-accent-500 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none' />
             </button>
 
-            {!showAllProjects && <p className='text-secondary-400 text-sm mt-4'>Showing 6 of {projects.length} projects</p>}
+            {!showAllProjects && (
+              <p className='text-secondary-400 text-sm mt-4'>
+                Showing {Math.min(projectsToShow, filteredProjects.length)} of {filteredProjects.length} projects
+              </p>
+            )}
           </div>
         )}
       </div>

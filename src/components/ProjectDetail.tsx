@@ -208,7 +208,9 @@ function ProjectDetail({ project }: ProjectDetailProps): React.JSX.Element {
                   </div>
                   <div className='flex justify-between'>
                     <span className='text-secondary-300'>Category</span>
-                    <span className='font-semibold text-white'>{project.category}</span>
+                    <span className='font-semibold text-white'>
+                      {Array.isArray(project.category) ? project.category.join(', ') : project.category}
+                    </span>
                   </div>
                 </div>
               </div>
