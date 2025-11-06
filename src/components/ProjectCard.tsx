@@ -12,7 +12,7 @@ interface ProjectCardProps {
 function ProjectCard({ project, index }: ProjectCardProps): React.JSX.Element {
   const [isNavigating, setIsNavigating] = useState(false);
   const hasImage = typeof project.imageUrl === 'string' && project.imageUrl.trim().length > 0;
-  const displayCategory = Array.isArray(project.category) ? project.category[0] : project.category;
+  const displayCategory = Array.isArray(project.category) ? project.category.join(', ') : project.category;
 
   const handleAnchorClick = (): void => {
     if (isNavigating) return;

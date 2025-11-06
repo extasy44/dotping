@@ -98,13 +98,7 @@ function ProjectDetail({ project }: ProjectDetailProps): React.JSX.Element {
           <div className='grid grid-cols-1 lg:grid-cols-2 gap-16 items-center'>
             {/* Project Info */}
             <div className='animate-fade-in-left'>
-              <div className='inline-flex items-center px-6 py-3 mb-6 bg-primary-500/10 border border-primary-400/30 rounded-full text-sm font-semibold text-primary-300 shadow-neon'>
-                <span className='w-2 h-2 bg-primary-400 rounded-full mr-3 animate-glow-pulse'></span>
-                {project.category}
-              </div>
-
               <h1 className='text-5xl md:text-6xl lg:text-7xl font-bold mb-8 leading-tight text-white'>{project.title}</h1>
-
               <p className='text-xl text-secondary-300 leading-relaxed mb-8'>{project.description}</p>
 
               {/* Project Meta */}

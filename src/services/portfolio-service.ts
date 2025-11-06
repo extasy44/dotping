@@ -10,7 +10,7 @@ export interface Project {
   longDescription: string;
   imageUrl: string;
   images: string[];
-  category: string;
+  category: string | string[];
   year: string;
   tags: string[];
   client: string;
